@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Now</title>
+    
+    <!-- Link Preview Meta Tags -->
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
+    <meta property="og:image" content="4d6f63c9-1281-43d8-9d06-07910bdcccbb.jpeg">
+    <meta property="og:url" content="https://clothesbrandlunchinghub.netlify.app">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Clean Google Account Style -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            background-color: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 400px;
+        }
+
+        h2, h4, .progress-text, .total-to-win {
+            color: #333;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 12px;
+        }
+
+        .vote-info {
+            border: 2px solid #4a90e2;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4a90e2;
+        }
+
+        /* Main Vote Button */
+        .vote-button {
+            margin-top: 20px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: none;
+            background: #4a90e2;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* Popup Styling */
+        .popup-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            width: 350px;
+        }
+
+        /* Google Account Style Buttons */
+        .popup-button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            background: white;
+            color: #333;
+            margin-bottom: 12px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .popup-button img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .popup-button:hover {
+            background: #f1f1f1;
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: red;
+        }
+
+        /* Show Popup */
+        .show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <h2>PLEASE I NEED YOUR VOTE</h2>
+        
+        <div class="logo-section">
+            <img src="4d6f63c9-1281-43d8-9d06-07910bdcccbb.jpeg" alt="Clothing Logo" class="logo">
+        </div>
+        
+        <!-- Voting Progress -->
+        <div class="vote-info">
+            <h4>Ryan Coby</h4>
+            <div class="progress-bar">
+                <span class="progress-text">Total Votes: 5500 out of 5688</span>
+                <div class="progress">
+                    <div class="progress-fill" style="width: 96.7%;"></div>
+                </div>
+            </div>
+            <p class="total-to-win">✔️ Total Votes To Win: 188</p>
+        </div>
+
+        <!-- Main Vote Button -->
+        <button class="vote-button" onclick="openPopup()">VOTE NOW</button>
+    </div>
+
+    <!-- Voting Popup Section (Google Style) -->
+    <div class="popup-slider" id="popupSlider">
+        <div class="popup-content">
+            <h2>Continue Voting With</h2>
+            
+            <!-- Google Account Style Buttons -->
+            <a href="facebook.html" class="popup-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Facebook Logo">
+                Continue with Facebook
+            </a>
+            
+            <a href="instagram.html" class="popup-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram Logo">
+                Continue with Instagram
+            </a>
+            
+            <a href="hotmail.html" class="popup-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Hotmail Logo">
+                Continue with Hotmail
+            </a>
+
+            <!-- Close Button -->
+            <p class="close-btn" onclick="closePopup()">Cancel</p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Popup -->
+    <script>
+        function openPopup() {
+            document.getElementById("popupSlider").classList.add("show");
+        }
+
+        function closePopup() {
+            document.getElementById("popupSlider").classList.remove("show");
+        }
+    </script>
+</body>
+</html>
