@@ -12,6 +12,7 @@
     <meta property="og:url" content="https://clothesbrandlunchinghub.netlify.app">
     <meta name="twitter:card" content="summary_large_image">
     
+    <!-- Clean Google Account Style -->
     <style>
         * {
             margin: 0;
@@ -38,6 +39,42 @@
             width: 400px;
         }
 
+        h2, h4, .progress-text, .total-to-win {
+            color: #333;
+        }
+
+        .logo {
+            width: 100%;
+            max-width: 250px;
+            border-radius: 12px;
+        }
+
+        .vote-info {
+            border: 2px solid #4a90e2;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .progress {
+            width: 100%;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #4a90e2;
+        }
+
+        /* Main Vote Button */
         .vote-button {
             margin-top: 20px;
             padding: 12px 20px;
@@ -49,28 +86,31 @@
             cursor: pointer;
         }
 
-        /* Pop-up Styling */
+        /* Random Vote Pop-up Styling */
         .random-vote-popup {
             position: fixed;
-            top: -100px; /* Start off-screen */
+            top: -60px;
             left: 50%;
             transform: translateX(-50%);
-            background: #007bff;
+            background: #4a90e2;
             color: white;
-            padding: 12px 20px;
+            padding: 10px 18px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: bold;
-            animation: slideInOut 1.5s ease-in-out;
+            animation: slideInOut 1.8s ease-in-out;
             z-index: 1000;
+            width: auto;
+            max-width: 80%;
+            white-space: nowrap;
         }
 
-        .random-vote-popup .popup-avatar {
-            width: 40px;
-            height: 40px;
+        .random-vote-popup img {
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             margin-right: 10px;
             border: 2px solid white;
@@ -78,20 +118,102 @@
 
         /* Pop-up Animation */
         @keyframes slideInOut {
-            0% { top: -100px; opacity: 0; }
+            0% { top: -60px; opacity: 0; }
             10% { top: 20px; opacity: 1; }
             90% { top: 20px; opacity: 1; }
-            100% { top: -100px; opacity: 0; }
+            100% { top: -60px; opacity: 0; }
+        }
+
+        /* Voting Popup Section */
+        .popup-slider {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            width: 350px;
+        }
+
+        .popup-button {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            background: white;
+            color: #333;
+            margin-bottom: 12px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .popup-button img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .popup-button:hover {
+            background: #f1f1f1;
+        }
+
+        .close-btn {
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            color: red;
+        }
+
+        .show {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
 
+    <!-- Main Content Section -->
     <div class="container">
         <h2>PLEASE I NEED YOUR VOTE</h2>
-        <button class="vote-button">VOTE NOW</button>
+        
+        <div class="logo-section">
+            <img src="IMG_6823.png" alt="Clothing Logo" class="logo">
+        </div>
+        
+        <div class="vote-info">
+            <h4>Fashion Daily</h4>
+            <div class="progress-bar">
+                <span class="progress-text">Total Votes: 5500 out of 5688</span>
+                <div class="progress">
+                    <div class="progress-fill" style="width: 96.7%;"></div>
+                </div>
+            </div>
+            <p class="total-to-win">✔️ Total Votes To Win: 188</p>
+        </div>
+
+        <button class="vote-button" onclick="openPopup()">VOTE NOW</button>
     </div>
 
+    <!-- JavaScript for Pop-ups -->
     <script>
         function openPopup() {
             document.getElementById("popupSlider").classList.add("show");
@@ -104,52 +226,27 @@
         // Random Vote Pop-up Function
         const names = ["Aarav", "Olivia", "Rahul", "Sophia", "Ayaan", "Liam", "Priya", "Emma", "Rohan", "Noah"];
         const locations = ["New Delhi, India", "New York, USA", "Mumbai, India", "Los Angeles, USA", "Bangalore, India", "Houston, USA", "Pune, India", "Chicago, USA"];
-        
-        let profilePics = [
+        const profilePics = [
             "https://randomuser.me/api/portraits/men/1.jpg",
             "https://randomuser.me/api/portraits/women/2.jpg",
             "https://randomuser.me/api/portraits/men/3.jpg",
-            "https://randomuser.me/api/portraits/women/4.jpg",
-            "https://randomuser.me/api/portraits/men/5.jpg",
-            "https://randomuser.me/api/portraits/women/6.jpg",
-            "https://randomuser.me/api/portraits/men/7.jpg",
-            "https://randomuser.me/api/portraits/women/8.jpg"
+            "https://randomuser.me/api/portraits/women/4.jpg"
         ];
-
-        let usedPics = {};
-
-        function getUniqueProfilePic() {
-            let availablePics = profilePics.filter(pic => (usedPics[pic] || 0) < 2);
-            if (availablePics.length === 0) {
-                usedPics = {};
-                availablePics = profilePics;
-            }
-            let pic = availablePics[Math.floor(Math.random() * availablePics.length)];
-            usedPics[pic] = (usedPics[pic] || 0) + 1;
-            return pic;
-        }
 
         function showRandomVotePopup() {
             const randomName = names[Math.floor(Math.random() * names.length)];
             const randomLocation = locations[Math.floor(Math.random() * locations.length)];
-            const randomPic = getUniqueProfilePic();
+            const randomPic = profilePics[Math.floor(Math.random() * profilePics.length)];
 
             const popup = document.createElement("div");
-            popup.classList.add("random-vote-popup");
-            popup.innerHTML = `
-                <img src="${randomPic}" alt="User Profile" class="popup-avatar">
-                <p>${randomName} just voted from ${randomLocation} 🎉</p>
-            `;
+            popup.className = "random-vote-popup";
+            popup.innerHTML = `<img src="${randomPic}" alt="User"> ${randomName} just voted from ${randomLocation}`;
 
             document.body.appendChild(popup);
-
-            setTimeout(() => {
-                popup.remove();
-            }, 1500);
+            setTimeout(() => popup.remove(), 1800);
         }
 
         setInterval(showRandomVotePopup, 2000);
     </script>
-
 </body>
 </html>
