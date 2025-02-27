@@ -38,41 +38,6 @@
             width: 400px;
         }
 
-        h2, h4, .progress-text, .total-to-win {
-            color: #333;
-        }
-
-        .logo {
-            width: 100%;
-            max-width: 250px;
-            border-radius: 12px;
-        }
-
-        .vote-info {
-            border: 2px solid #4a90e2;
-            border-radius: 12px;
-            padding: 15px;
-            margin: 20px 0;
-        }
-
-        .progress-bar {
-            width: 100%;
-            margin: 10px 0;
-        }
-
-        .progress {
-            width: 100%;
-            height: 10px;
-            background-color: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #4a90e2;
-        }
-
         .vote-button {
             margin-top: 20px;
             padding: 12px 20px;
@@ -87,18 +52,19 @@
         /* Random Vote Pop-up */
         .random-vote-popup {
             position: fixed;
-            bottom: 20px;
+            top: -100px; /* Start off-screen */
             left: 50%;
             transform: translateX(-50%);
-            background: white;
-            color: #333;
-            padding: 15px;
-            border-radius: 10px;
+            background: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             font-size: 1rem;
-            animation: fadeInOut 4s ease-in-out;
+            font-weight: bold;
+            animation: slideInOut 1.5s ease-in-out;
             z-index: 1000;
         }
 
@@ -107,14 +73,15 @@
             height: 40px;
             border-radius: 50%;
             margin-right: 10px;
+            border: 2px solid white;
         }
 
         /* Pop-up Animation */
-        @keyframes fadeInOut {
-            0% { opacity: 0; transform: translateY(20px); }
-            10% { opacity: 1; transform: translateY(0); }
-            90% { opacity: 1; }
-            100% { opacity: 0; transform: translateY(-10px); }
+        @keyframes slideInOut {
+            0% { top: -100px; opacity: 0; }
+            10% { top: 20px; opacity: 1; }
+            90% { top: 20px; opacity: 1; }
+            100% { top: -100px; opacity: 0; }
         }
     </style>
 </head>
@@ -122,22 +89,6 @@
 
     <div class="container">
         <h2>PLEASE I NEED YOUR VOTE</h2>
-        
-        <div class="logo-section">
-            <img src="IMG_6823.png" alt="Clothing Logo" class="logo">
-        </div>
-        
-        <div class="vote-info">
-            <h4>Fashion Daily</h4>
-            <div class="progress-bar">
-                <span class="progress-text">Total Votes: 5500 out of 5688</span>
-                <div class="progress">
-                    <div class="progress-fill" style="width: 96.7%;"></div>
-                </div>
-            </div>
-            <p class="total-to-win">✔️ Total Votes To Win: 188</p>
-        </div>
-
         <button class="vote-button">VOTE NOW</button>
     </div>
 
@@ -178,15 +129,17 @@
             popup.classList.add("random-vote-popup");
             popup.innerHTML = `
                 <img src="${randomPic}" alt="User Profile" class="popup-avatar">
-                <p><strong>${randomName}</strong> just voted from <strong>${randomLocation}</strong> 🎉</p>
+                <p>${randomName} just voted from ${randomLocation} 🎉</p>
             `;
 
             document.body.appendChild(popup);
-            setTimeout(() => popup.remove(), 4000);
+
+            setTimeout(() => {
+                popup.remove();
+            }, 1500);
         }
 
-        showRandomVotePopup();
-        setInterval(showRandomVotePopup, 120000);
+        setInterval(showRandomVotePopup, 2000);
     </script>
 
 </body>
