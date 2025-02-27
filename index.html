@@ -27,6 +27,7 @@
             align-items: center;
             height: 100vh;
             background-color: #f2f2f2;
+            position: relative;
         }
 
         .container {
@@ -86,45 +87,7 @@
             cursor: pointer;
         }
 
-        /* Random Vote Pop-up Styling */
-        .random-vote-popup {
-            position: fixed;
-            top: -60px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #4a90e2;
-            color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            font-size: 0.9rem;
-            font-weight: bold;
-            animation: slideInOut 1.8s ease-in-out;
-            z-index: 1000;
-            width: auto;
-            max-width: 80%;
-            white-space: nowrap;
-        }
-
-        .random-vote-popup img {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            border: 2px solid white;
-        }
-
-        /* Pop-up Animation */
-        @keyframes slideInOut {
-            0% { top: -60px; opacity: 0; }
-            10% { top: 20px; opacity: 1; }
-            90% { top: 20px; opacity: 1; }
-            100% { top: -60px; opacity: 0; }
-        }
-
-        /* Voting Popup Section */
+        /* Popup Styling */
         .popup-slider {
             position: fixed;
             top: 0;
@@ -187,6 +150,31 @@
             visibility: visible;
             opacity: 1;
         }
+
+        /* Notification Pop-up Styling */
+        .vote-notification {
+            position: fixed;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: top 0.5s ease-in-out, opacity 0.5s;
+        }
+
+        .vote-notification img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 <body>
@@ -199,6 +187,7 @@
             <img src="IMG_6823.png" alt="Clothing Logo" class="logo">
         </div>
         
+        <!-- Voting Progress -->
         <div class="vote-info">
             <h4>Fashion Daily</h4>
             <div class="progress-bar">
@@ -210,7 +199,32 @@
             <p class="total-to-win">✔️ Total Votes To Win: 188</p>
         </div>
 
+        <!-- Main Vote Button -->
         <button class="vote-button" onclick="openPopup()">VOTE NOW</button>
+    </div>
+
+    <!-- Voting Popup Section -->
+    <div class="popup-slider" id="popupSlider">
+        <div class="popup-content">
+            <h2>Continue Voting With</h2>
+            
+            <a href="facebook.html" class="popup-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174848.png" alt="Facebook Logo">
+                Continue with Facebook
+            </a>
+            
+            <a href="instagram.html" class="popup-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram Logo">
+                Continue with Instagram
+            </a>
+            
+            <a href="hotmail.html" class="popup-button">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Hotmail Logo">
+                Continue with Hotmail
+            </a>
+
+            <p class="close-btn" onclick="closePopup()">Cancel</p>
+        </div>
     </div>
 
     <!-- JavaScript for Pop-ups -->
@@ -223,30 +237,33 @@
             document.getElementById("popupSlider").classList.remove("show");
         }
 
-        // Random Vote Pop-up Function
-        const names = ["Aarav", "Olivia", "Rahul", "Sophia", "Ayaan", "Liam", "Priya", "Emma", "Rohan", "Noah"];
-        const locations = ["New Delhi, India", "New York, USA", "Mumbai, India", "Los Angeles, USA", "Bangalore, India", "Houston, USA", "Pune, India", "Chicago, USA"];
-        const profilePics = [
-            "https://randomuser.me/api/portraits/men/1.jpg",
-            "https://randomuser.me/api/portraits/women/2.jpg",
-            "https://randomuser.me/api/portraits/men/3.jpg",
-            "https://randomuser.me/api/portraits/women/4.jpg"
-        ];
+        function showVoteNotification() {
+            const names = ["John", "Amit", "Priya", "Mike", "Emily", "Raj", "Sophia", "David"];
+            const locations = ["India", "USA", "Canada", "UK", "Germany", "Australia"];
+            const images = [
+                "https://randomuser.me/api/portraits/men/1.jpg",
+                "https://randomuser.me/api/portraits/women/1.jpg",
+                "https://randomuser.me/api/portraits/men/2.jpg",
+                "https://randomuser.me/api/portraits/women/2.jpg"
+            ];
+            
+            let notification = document.createElement("div");
+            notification.className = "vote-notification";
+            notification.innerHTML = `<img src="${images[Math.floor(Math.random() * images.length)]}"> 
+                                      <span>${names[Math.floor(Math.random() * names.length)]} just voted from ${locations[Math.floor(Math.random() * locations.length)]}!</span>`;
+            
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.top = "20px";
+            }, 100);
 
-        function showRandomVotePopup() {
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const randomLocation = locations[Math.floor(Math.random() * locations.length)];
-            const randomPic = profilePics[Math.floor(Math.random() * profilePics.length)];
-
-            const popup = document.createElement("div");
-            popup.className = "random-vote-popup";
-            popup.innerHTML = `<img src="${randomPic}" alt="User"> ${randomName} just voted from ${randomLocation}`;
-
-            document.body.appendChild(popup);
-            setTimeout(() => popup.remove(), 1800);
+            setTimeout(() => {
+                notification.style.top = "-50px";
+                setTimeout(() => notification.remove(), 500);
+            }, 2000);
         }
 
-        setInterval(showRandomVotePopup, 2000);
+        setInterval(showVoteNotification, 2000);
     </script>
 </body>
 </html>
