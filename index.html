@@ -6,8 +6,8 @@
     <title>Vote Now</title>
     
     <!-- Link Preview Meta Tags -->
-    <meta property="og:title" content="Vote for Fashion Daily Now!">
-    <meta property="og:description" content="Support our brand by casting your vote. Every vote counts!">
+    <meta property="og:title" content="">
+    <meta property="og:description" content="">
     <meta property="og:image" content="IMG_6823.png">
     <meta property="og:url" content="https://clothesbrandlunchinghub.netlify.app">
     <meta name="twitter:card" content="summary_large_image">
@@ -49,7 +49,7 @@
             cursor: pointer;
         }
 
-        /* Random Vote Pop-up */
+        /* Pop-up Styling */
         .random-vote-popup {
             position: fixed;
             top: -100px; /* Start off-screen */
@@ -93,6 +93,15 @@
     </div>
 
     <script>
+        function openPopup() {
+            document.getElementById("popupSlider").classList.add("show");
+        }
+
+        function closePopup() {
+            document.getElementById("popupSlider").classList.remove("show");
+        }
+
+        // Random Vote Pop-up Function
         const names = ["Aarav", "Olivia", "Rahul", "Sophia", "Ayaan", "Liam", "Priya", "Emma", "Rohan", "Noah"];
         const locations = ["New Delhi, India", "New York, USA", "Mumbai, India", "Los Angeles, USA", "Bangalore, India", "Houston, USA", "Pune, India", "Chicago, USA"];
         
